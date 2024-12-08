@@ -9,22 +9,12 @@ import { FirestoreModule } from '@angular/fire/firestore';
 import { environment } from './environments/environment';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import { MenuComponent } from './customer/menu/menu.component';
-import { OrderComponent } from './customer/order/order.component';
-import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
-import { MenuManagementComponent } from './admin/menu-management/menu-management.component';
-import { OrderManagementComponent } from './admin/order-management/order-management.component';
-
-
 import { MenuManagementModule } from './admin/menu-management/menu-management.module';
+import { CustomerModule } from './customer/customer.module'
+import {AdminModule} from './admin/admin.module'
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent,
-    OrderComponent,
-    AdminDashboardComponent,
-    MenuManagementComponent,
-    OrderManagementComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +28,9 @@ import { MenuManagementModule } from './admin/menu-management/menu-management.mo
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
-    MenuManagementModule
+    MenuManagementModule,
+    CustomerModule,
+    AdminModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,33 @@
+<div class="menu-container" [class.cart-visible]="cart.length > 0">    <mat-card *ngFor="let drink of drinks" class="menu-item">
+        <img mat-card-image [src]="drink.image" [alt]="drink.name">
+        <mat-card-title>{{ drink.name }}</mat-card-title>
+        <mat-card-content>
+            <p>{{ drink.description }}</p>
+            <p><strong>{{ drink.price | currency }}</strong></p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="accent" (click)="addToCart(drink)">
+                Add to Cart
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>
+
+<mat-divider></mat-divider>
+<div class="cart-container" *ngIf="cart.length > 0">
+    <h2>Cart</h2>
+        <ul>
+            <li *ngFor="let item of cart">
+                {{ item.drink.name }} x {{ item.quantity }} -
+                {{ item.drink.price * item.quantity | currency }}
+                <button mat-icon-button (click)="decreaseQuantity(item)">
+                    <mat-icon>remove</mat-icon>
+                </button>
+            </li>
+        </ul>
+        <p><strong>Total: {{ totalCost | currency }}</strong></p>
+        <div style="display: flex; justify-content: flex-end; gap:10px;">
+            <button mat-raised-button color="warn" (click)="clearCart()">Clear Cart</button>
+            <button mat-raised-button color="accent" (click)="proceedToOrder()">Proceed to Order</button>
+        </div>
+</div>

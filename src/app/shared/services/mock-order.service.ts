@@ -14,16 +14,22 @@ export class MockOrderService {
   }
 
   addOrder(order: Order): void {
+    order.id = this.generateId(); // Simulate database ID
     const currentOrders = this.orders.getValue();
-    const id = (currentOrders.length + 1).toString();
-    this.orders.next([...currentOrders, { ...order, id }]);
+    currentOrders.push(order);
+    this.orders.next(currentOrders);
   }
 
-  updateOrderStatus(id: string, status: 'Pending' | 'Preparing' | 'Completed'): void {
+  updateOrderStatus(orderId: string, status: 'Pending' | 'Preparing' | 'Completed'): void {
     const currentOrders = this.orders.getValue();
-    const updatedOrders = currentOrders.map((order) =>
-      order.id === id ? { ...order, status } : order
-    );
-    this.orders.next(updatedOrders);
+    const order = currentOrders.find((o) => o.id === orderId);
+    if (order) {
+      order.status = status;
+      this.orders.next(currentOrders);
+    }
+  }
+
+  private generateId(): string {
+    return Math.random().toString(36).substr(2, 9);
   }
 }

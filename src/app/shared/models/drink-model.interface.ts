@@ -3,5 +3,5 @@ export interface Drink {
   name: string;
   description?: string;
   price: number;
-  imageUrl?: string;
+  image?: string;
 }

@@ -45,3 +45,39 @@
     flex-direction: column;
   }
 }
+
+.menu-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  padding-bottom: 20px; // Remove default padding
+  
+  &.cart-visible {
+    padding-bottom: 250px; // Only add padding when cart is visible
+  }
+}
+
+.menu-item {
+  width: 300px;
+  padding: 10px;
+}
+
+.cart-container {
+  padding: 16px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: calc(100% - 32px); // Account for padding
+  background-color: white;
+  z-index: 1000;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.5);
+  margin: 0 auto;
+}
+
+.menu-item {
+  img {
+    height: 150px;
+    object-fit: cover;
+  }
+}
