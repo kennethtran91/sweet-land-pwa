@@ -1,15 +1,29 @@
 .order-management {
-    max-width: 800px;
-    margin: auto;
-    padding: 16px;
-  
-    .orders-table {
-      width: 100%;
-      margin-top: 16px;
-    }
-  
-    mat-select {
-      width: 150px;
-    }
+  overflow-x: auto;
+  margin: auto;
+  padding: 16px;
+
+  .orders-table {
+    width: 100%;
+    margin-top: 16px;
   }
-  
+
+  mat-select {
+    width: 150px;
+  }
+}
+mat-expansion-panel-header {
+  justify-content: space-between;
+  align-items: center;
+}
+
+mat-panel-title {
+  font-weight: bold;
+}
+
+mat-panel-description {
+  font-style: italic;
+}
+.search-box {
+  width: 100%;
+}

@@ -1,52 +1,38 @@
 <div class="order-management">
-    <mat-card>
-        <mat-card-content>
-            <mat-card-header><h2>Order Management</h2></mat-card-header>
-  
-    <table mat-table [dataSource]="orders" class="orders-table">
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> Order ID </th>
-        <td mat-cell *matCellDef="let order"> {{ order.id }} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="customerName">
-        <th mat-header-cell *matHeaderCellDef> Customer Name </th>
-        <td mat-cell *matCellDef="let order"> {{ order.customerName }} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="items">
-        <th mat-header-cell *matHeaderCellDef> Items </th>
-        <td mat-cell *matCellDef="let order">
-          <ul>
-            <li *ngFor="let item of order.items">
-              {{ item.drinkName }} x {{ item.quantity }}
-            </li>
-          </ul>
-        </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="total">
-        <th mat-header-cell *matHeaderCellDef> Total </th>
-        <td mat-cell *matCellDef="let order"> 
-          {{ calculateTotal(order) | currency }} 
-        </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef> Status </th>
-        <td mat-cell *matCellDef="let order">
+  <mat-form-field appearance="fill" class="search-box">
+    <mat-label>Search</mat-label>
+    <input matInput (input)="applyFilter($any($event.target).value)" placeholder="Search orders, customer name, etc." />
+  </mat-form-field>
+
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let order of filteredOrders">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ order.customerName }}
+        </mat-panel-title>
+        <mat-panel-description>
+          Status: {{ order.status }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div class="order-details">
+        <p><strong>Order ID:</strong> {{ order.id }}</p>
+        <p><strong>Items:</strong></p>
+        <ul>
+          <li *ngFor="let item of order.items">
+            {{ item.drinkName }} x {{ item.quantity }}
+          </li>
+        </ul>
+        <p><strong>Total:</strong> {{ calculateTotal(order) | currency }}</p>
+        <mat-form-field appearance="fill">
+          <mat-label>Status</mat-label>
           <mat-select [(value)]="order.status" (selectionChange)="updateOrderStatus(order.id, $event.value)">
             <mat-option value="Pending">Pending</mat-option>
             <mat-option value="Completed">Completed</mat-option>
             <mat-option value="Cancelled">Cancelled</mat-option>
           </mat-select>
-        </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="['id', 'customerName', 'items', 'total', 'status']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['id', 'customerName', 'items', 'total', 'status'];"></tr>
-    </table>
-</mat-card-content>
-</mat-card>
-  </div>
-  
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

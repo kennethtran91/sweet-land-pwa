@@ -1,24 +1,27 @@
 <div class="order-container">
-    <h2>Order Summary</h2>
-    <ul class="order-items">
-      <li *ngFor="let item of cart">
-        {{ item.drinkName }} x {{ item.quantity }} - 
-        {{ item.price * item.quantity | currency }}
-      </li>
-    </ul>
-    <p><strong>Total: {{ totalCost | currency }}</strong></p>
-  
-    <mat-form-field class="customer-name">
-      <mat-label>Enter your name</mat-label>
-      <input matInput [(ngModel)]="customerName" placeholder="Your Name" />
-    </mat-form-field>
-    <div class="button-container">
-    <button mat-raised-button color="accent" (click)="submitOrder()">
-      Submit Order
-    </button>
+  <h2>Order Summary</h2>
+  <ul class="order-items">
+    <li *ngFor="let item of cart">
+      {{ item.drinkName }} x {{ item.quantity }} -
+      {{ item.price * item.quantity | currency }}
+    </li>
+  </ul>
+  <p><strong>Total: {{ totalCost | currency }}</strong></p>
+
+  <mat-form-field class="customer-name">
+    <mat-label>Enter your name</mat-label>
+    <input matInput [(ngModel)]="customerName" placeholder="Your Name" />
+  </mat-form-field>
+  <mat-form-field class="customer-note">
+    <mat-label>Leave a comment</mat-label>
+    <textarea matInput placeholder="Ex. less sugar, less ice..."></textarea>
+  </mat-form-field>
+  <div class="button-container">
     <button mat-raised-button color="primary" (click)="backToMenu()">
       Back to Menu
     </button>
-    </div>
+    <button mat-raised-button color="accent" (click)="submitOrder()">
+      Submit Order
+    </button>
   </div>
-  
+</div>

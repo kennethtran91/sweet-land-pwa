@@ -9,17 +9,28 @@ import { Order } from '../../shared/models/order.interface';
 })
 export class OrderManagementComponent implements OnInit {
   orders: Order[] = [];
+  filteredOrders: Order[] = [];
 
-  constructor(private orderService: MockOrderService) {}
+  constructor(private mockOrderService: MockOrderService) {}
 
   ngOnInit(): void {
-    this.orderService.getOrders().subscribe((orders) => {
+    this.mockOrderService.getOrders().subscribe((orders) => {
       this.orders = orders;
+      this.filteredOrders = orders;
     });
   }
 
   updateOrderStatus(orderId: string, status: 'Pending' | 'Preparing' | 'Completed'): void {
-    this.orderService.updateOrderStatus(orderId, status);
+    this.mockOrderService.updateOrderStatus(orderId, status);
+  }
+
+  applyFilter(filterValue: string): void {
+    const lowerCaseFilter = filterValue.toLowerCase();
+    this.filteredOrders = this.orders.filter(order =>
+      order.customerName.toLowerCase().includes(lowerCaseFilter) ||
+      order.id.toLowerCase().includes(lowerCaseFilter) ||
+      order.items.some(item => item.drinkName.toLowerCase().includes(lowerCaseFilter))
+    );
   }
 
   calculateTotal(order: any): number {

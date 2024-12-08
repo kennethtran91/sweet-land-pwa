@@ -1,0 +1,11 @@
+.admin-dashboard-container {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 60px; /* Space for the logout button */
+}
+
+.logout-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
