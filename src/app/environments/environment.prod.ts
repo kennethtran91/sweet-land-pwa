@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: '' // Cloud backend URL (to be added later)
+    apiUrl: process.env['DATABASE_URL'], // Cloud backend URL (to be added later)
   };
