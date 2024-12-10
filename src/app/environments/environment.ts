@@ -8,5 +8,6 @@ export const environment = {
     messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
     appId: "YOUR_APP_ID"
   },
-  apiUrl: 'http://192.168.0.78:3000/api' // Local backend URL
+  apiUrl: 'http://192.168.0.78:3000/api', // Local backend URL
+  ADMIN_PASSWORD: '1234' // Fallback for development
 };

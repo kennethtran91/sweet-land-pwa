@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-admin-login',
@@ -7,13 +8,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./admin-login.component.scss'],
 })
 export class AdminLoginComponent {
+  private readonly adminPassword = environment.ADMIN_PASSWORD // Fallback for development
   pin = '';
-  correctPin = '1234'; // Replace with environment variable or backend call in production
 
   constructor(private router: Router) {}
 
   login(): void {
-    if (this.pin === this.correctPin) {
+    if (this.pin === this.adminPassword) {
       localStorage.setItem('adminLoggedIn', 'true'); // Persist login status
       this.router.navigate(['/admin']);
     } else {
