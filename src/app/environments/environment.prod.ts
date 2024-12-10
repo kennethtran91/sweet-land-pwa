@@ -8,5 +8,5 @@ export const environment = {
       messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
       appId: "YOUR_APP_ID"
     },
-    apiUrl: process.env['DATABASE_URL'], // Cloud backend URL (to be added later)
+    apiUrl: 'https://sweet-land-api.onrender.com/api', // Cloud backend URL (to be added later)
   };
