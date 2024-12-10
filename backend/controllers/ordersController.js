@@ -28,4 +28,12 @@ const updateOrderStatus = (req, res) => {
   });
 };
 
-module.exports = { getOrders, createOrder, updateOrderStatus };
+const deleteOrder = (req, res) => {
+  const { id } = req.params;
+  Order.delete(id, (err) => {
+    if (err) return res.status(500).send(err.message);
+    res.status(200).json({ message: 'Order deleted successfully' });
+  });
+};
+
+module.exports = { getOrders, createOrder, updateOrderStatus, deleteOrder };

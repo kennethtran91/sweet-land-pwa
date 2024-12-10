@@ -12,6 +12,7 @@
     width: 100%;
   }
 }
+
 mat-expansion-panel-header {
   justify-content: space-between;
   align-items: center;
@@ -24,18 +25,21 @@ mat-panel-title {
 mat-panel-description {
   font-style: italic;
 }
+
 .search-box {
   width: 100%;
 }
 
-.status-completed {
-  background-color: #D6EADf; // light green
-}
+mat-expansion-panel {
+  .status-completed {
+    background-color: #c5eed8; // light green
+  }
 
-.status-pending {
-  background-color: #EAC4D5; // light pink
-}
+  .status-pending {
+    background-color: #f5accd; // light pink
+  }
 
-.status-cancelled {
-  background-color: #f0f0f0; // light gray
+  .status-cancelled {
+    background-color: #f0f0f0; // light gray
+  }
 }

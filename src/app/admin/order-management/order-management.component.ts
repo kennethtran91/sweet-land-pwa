@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-// import { MockOrderService } from '../../shared/services/mock-order.service';
+import { Component, OnInit, inject } from '@angular/core';
 import { Order } from '../../shared/models/order.interface';
 import { OrderService } from '../../shared/services/order.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-order-management',
@@ -11,10 +11,14 @@ import { OrderService } from '../../shared/services/order.service';
 export class OrderManagementComponent implements OnInit {
   orders: Order[] = [];
   filteredOrders: Order[] = [];
-
+  private _snackBar = inject(MatSnackBar);
   constructor(private orderService: OrderService) {}
 
   ngOnInit(): void {
+    this.loadOrders();
+  }
+
+  loadOrders() {
     this.orderService.getOrders().subscribe((orders) => {
       this.orders = orders.map(order => ({
         ...order,
@@ -28,7 +32,7 @@ export class OrderManagementComponent implements OnInit {
   updateOrderStatus(orderId: string, status: 'Pending' | 'Cancelled' | 'Completed'): void {
     this.orderService.updateOrderStatus(orderId, status).subscribe({
       next: () => {
-        console.log('Status updated successfully');
+        this.showMessageBox('Status updated successfully');
       },
       error: (error) => {
         console.error('Error updating status:', error);
@@ -51,8 +55,22 @@ export class OrderManagementComponent implements OnInit {
   }
 
   calculateTotal(order: any): number {
-
     return order.items.reduce((total: number, item: { price: number; quantity: number }) => total + item.price * item.quantity, 0);
+  }
 
+  deleteOrder(orderId: string) {
+    if (confirm('Are you sure you want to delete this order?')) {
+      this.orderService.deleteOrder(orderId).subscribe({
+        next: () => {
+          this.showMessageBox('Order deleted successfully');
+          this.loadOrders();
+        },
+        error: (error) => console.error('Error deleting order:', error)
+      });
+    }
+  }
+
+  showMessageBox(message: string): void {
+    this._snackBar.open(message, '', { duration: 1 * 1000 });
   }
 }

@@ -42,5 +42,20 @@ import { catchError, tap } from 'rxjs/operators';
           })
         );
     }
+
+    deleteOrder(orderId: string): Observable<void> {
+      return this.http.delete<void>(`${this.apiUrl}/${orderId}`).pipe(
+        tap(() => {
+          // Remove order from local state
+          const currentOrders = this.ordersSubject.getValue();
+          const updatedOrders = currentOrders.filter(order => order.id !== orderId);
+          this.ordersSubject.next(updatedOrders);
+        }),
+        catchError((error) => {
+          console.error('Error deleting order:', error);
+          return throwError(() => error);
+        })
+      );
+    }
   }
 

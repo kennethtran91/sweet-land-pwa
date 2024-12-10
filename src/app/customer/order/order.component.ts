@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrderService } from '../../shared/services/order.service';
 import { Order } from '../../shared/models/order.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-order',
@@ -13,6 +14,7 @@ export class OrderComponent implements OnInit {
   totalCost = 0;
   customerName = '';
   customerNote = '';
+  private _snackBar = inject(MatSnackBar);
   constructor(private orderService: OrderService, private router: Router) {}
   
   ngOnInit(): void {
@@ -40,8 +42,7 @@ export class OrderComponent implements OnInit {
       customerNote: this.customerNote || ''
     };
 
-    console.log(order);
-    alert('Order submitted successfully');
+    this.showMessageBox('Order submitted successfully');
     this.orderService.submitOrder(order).subscribe(() => {
       localStorage.removeItem('cart');
       this.router.navigate(['/']);
@@ -51,5 +52,9 @@ export class OrderComponent implements OnInit {
 
   backToMenu(): void {
     this.router.navigate(['/']);
+  }
+
+  showMessageBox(message: string): void {
+    this._snackBar.open(message, '', { duration: 1 * 1000 });
   }
 }

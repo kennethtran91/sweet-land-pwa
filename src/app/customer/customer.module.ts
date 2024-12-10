@@ -10,7 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import {CustomerRoutingModule} from './customer-routing.module';
 import {MatDividerModule} from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 @NgModule({
   declarations: [MenuComponent, OrderComponent],
   imports: [
@@ -23,7 +23,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatInputModule,
     CustomerRoutingModule,
     MatDividerModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule
   ],
   exports: [MenuComponent, OrderComponent]
 })

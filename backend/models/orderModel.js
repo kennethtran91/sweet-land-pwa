@@ -14,7 +14,10 @@ const Order = {
   updateStatus(orderId, status, callback) {
     const sql = 'UPDATE orders SET status = ? WHERE id = ?';
     db.run(sql, [status, orderId], callback);
-  }
+  },
+  delete: (id, callback) => {
+    db.run('DELETE FROM orders WHERE id = ?', [id], callback);
+  },
 };
 
 module.exports = Order;

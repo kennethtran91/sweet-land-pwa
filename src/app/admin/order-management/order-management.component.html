@@ -3,7 +3,12 @@
     <mat-label>Search</mat-label>
     <input matInput (input)="applyFilter($any($event.target).value)" placeholder="Search orders, customer name, etc." />
   </mat-form-field>
+  <mat-card class="empty-table" *ngIf="orders.length <= 0">
+    <mat-card-content>
+      <p>No orders found.</p>
+    </mat-card-content>
 
+  </mat-card>
   <mat-accordion>
     <mat-expansion-panel *ngFor="let order of filteredOrders">
       <mat-expansion-panel-header [ngClass]="{
@@ -38,6 +43,8 @@
             <mat-option value="Cancelled">Cancelled</mat-option>
           </mat-select>
         </mat-form-field>
+        <button mat-raised-button color="accent" *ngIf="order.status === 'Completed'" (click)="deleteOrder(order.id)">Delete Order</button>
+
       </div>
     </mat-expansion-panel>
   </mat-accordion>

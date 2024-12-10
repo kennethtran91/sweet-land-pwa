@@ -17,6 +17,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 
 @NgModule({
@@ -41,6 +43,7 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
     MatSelectModule,
     MatTabsModule,
     MatExpansionModule,
+    MatSnackBarModule
   ],
   exports: [
     MenuManagementComponent,

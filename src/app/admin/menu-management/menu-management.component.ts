@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuService } from '../../shared/services/menu.service';
 import { Drink } from '../../shared/models/drink-model.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 // import { MockMenuService } from '../../shared/services/mock-menu.service';
 
@@ -15,6 +16,7 @@ export class MenuManagementComponent {
   drinkForm!: FormGroup;
   isEditing = false;
   editingDrinkId: string | null = null;
+  private _snackBar = inject(MatSnackBar);
 
   displayedColumns = ['name', 'price', 'actions'];
 
@@ -48,7 +50,7 @@ export class MenuManagementComponent {
         // Update existing drink
         this.menuService.updateDrink({ ...drink, id: this.editingDrinkId }).subscribe({
           next: () => {
-            console.log('Drink updated successfully');
+            this.showMessageBox('Drink updated successfully');
             this.resetForm();
             this.loadDrinks(); // Refresh the list
           },
@@ -58,7 +60,7 @@ export class MenuManagementComponent {
         // Add new drink
         this.menuService.addDrink(drink).subscribe({
           next: () => {
-            console.log('Drink added successfully');
+            this.showMessageBox('Drink added successfully');
             this.resetForm();
             this.loadDrinks(); // Refresh the list
           },
@@ -78,7 +80,7 @@ export class MenuManagementComponent {
   deleteDrink(drinkId: number) {
     this.menuService.deleteDrink(drinkId).subscribe({
       next: () => {
-        console.log('Drink deleted successfully');
+        this.showMessageBox('Drink deleted successfully');
         this.loadDrinks(); // Refresh the list
       },
       error: (err) => console.error('Error deleting drink:', err),
@@ -89,5 +91,13 @@ export class MenuManagementComponent {
     this.drinkForm.reset();
     this.isEditing = false;
     this.editingDrinkId = null;
+  }
+
+  showMessageBox(message: string): void {
+    this._snackBar.open(message, '', { 
+      duration: 1 * 1000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top'
+     });
   }
 }

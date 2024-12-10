@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
-// import { MockMenuService } from '../../shared/services/mock-menu.service';
 import { MenuService } from 'src/app/shared/services/menu.service';
 import { Drink } from '../../shared/models/drink-model.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
 interface CartItem {
   drink: Drink;
   quantity: number;
@@ -16,6 +16,7 @@ interface CartItem {
 export class MenuComponent implements OnInit{
   drinks: Drink[] = [];
   cart: CartItem[] = [];
+  private _snackBar = inject(MatSnackBar);
   constructor(private menuService: MenuService, private router: Router) {}
 
   ngOnInit(): void {
@@ -31,6 +32,7 @@ export class MenuComponent implements OnInit{
       existingItem.quantity++;
     } else {
       this.cart.push({ drink, quantity: 1 });
+      this.showMessageBox('Item added to cart');
     }
   
     // Store cart data in localStorage
@@ -48,6 +50,7 @@ export class MenuComponent implements OnInit{
 
 clearCart() {
     this.cart = [];
+    this.showMessageBox('Cart cleared');
 }
 
 decreaseQuantity(item: CartItem) {
@@ -60,6 +63,10 @@ decreaseQuantity(item: CartItem) {
 
 proceedToOrder(): void {
   this.router.navigate(['/order']);
+}
+
+showMessageBox(message: string): void {
+  this._snackBar.open(message, '', { duration: 1 * 1000, verticalPosition: 'top', horizontalPosition: 'center'  });
 }
 
 }
