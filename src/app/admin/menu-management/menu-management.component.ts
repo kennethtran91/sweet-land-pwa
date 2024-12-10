@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MenuService } from '../../shared/services/menu.service';
 import { Drink } from '../../shared/models/drink-model.interface';
 
-import { MockMenuService } from '../../shared/services/mock-menu.service';
+// import { MockMenuService } from '../../shared/services/mock-menu.service';
 
 @Component({
   selector: 'app-menu-management',
@@ -20,33 +20,54 @@ export class MenuManagementComponent {
 
   constructor(
     private fb: FormBuilder, 
-    // private menuService: MenuService,
-    private menuService: MockMenuService
+    private menuService: MenuService
   ) {}
   ngOnInit(): void {
     this.drinkForm = this.fb.group({
       name: ['', Validators.required],
       description: [''],
-      price: [0, [Validators.required, Validators.min(0)]],
+      price: [null, [Validators.required, Validators.min(0)]],
+      image: ['']
     });
     this.menuService.getDrinks().subscribe((drinks) => (this.drinks = drinks));
   }
 
+  loadDrinks() {
+    this.menuService.getDrinks().subscribe({
+      next: (data) => (this.drinks = data),
+      error: (err) => console.error('Error fetching drinks:', err),
+    });
+  }
+
   onSubmit(): void {
+    console.log(this.drinkForm.value);
     if (this.drinkForm.valid) {
       const drink: Drink = this.drinkForm.value;
-
+  
       if (this.isEditing && this.editingDrinkId) {
-        this.menuService.updateDrink({ ...drink, id: this.editingDrinkId }).then(() => {
-          this.resetForm();
+        // Update existing drink
+        this.menuService.updateDrink({ ...drink, id: this.editingDrinkId }).subscribe({
+          next: () => {
+            console.log('Drink updated successfully');
+            this.resetForm();
+            this.loadDrinks(); // Refresh the list
+          },
+          error: (err) => console.error('Error updating drink:', err),
         });
       } else {
-        this.menuService.addDrink(drink).then(() => {
-          this.resetForm();
+        // Add new drink
+        this.menuService.addDrink(drink).subscribe({
+          next: () => {
+            console.log('Drink added successfully');
+            this.resetForm();
+            this.loadDrinks(); // Refresh the list
+          },
+          error: (err) => console.error('Error adding drink:', err),
         });
       }
     }
   }
+  
 
   editDrink(drink: Drink): void {
     this.isEditing = true;
@@ -54,12 +75,13 @@ export class MenuManagementComponent {
     this.drinkForm.patchValue(drink);
   }
 
-  deleteDrink(id: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-        this.menuService.getDrinks().subscribe((currentMenu) => {
-            const updatedMenu = currentMenu.filter(drink => drink.id !== id);
-            this.menuService.updateMenu(updatedMenu).then(() => resolve());
-        }, reject);
+  deleteDrink(drinkId: number) {
+    this.menuService.deleteDrink(drinkId).subscribe({
+      next: () => {
+        console.log('Drink deleted successfully');
+        this.loadDrinks(); // Refresh the list
+      },
+      error: (err) => console.error('Error deleting drink:', err),
     });
   }
 

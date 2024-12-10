@@ -6,9 +6,13 @@
 
   <mat-accordion>
     <mat-expansion-panel *ngFor="let order of filteredOrders">
-      <mat-expansion-panel-header>
+      <mat-expansion-panel-header [ngClass]="{
+        'status-completed': order.status === 'Completed',
+        'status-pending': order.status === 'Pending',
+        'status-cancelled': order.status === 'Cancelled'
+      }">
         <mat-panel-title>
-          {{ order.customerName }}
+          {{ order.customerName | titlecase }}
         </mat-panel-title>
         <mat-panel-description>
           Status: {{ order.status }}
@@ -16,6 +20,7 @@
       </mat-expansion-panel-header>
 
       <div class="order-details">
+        <br />
         <p><strong>Order ID:</strong> {{ order.id }}</p>
         <p><strong>Items:</strong></p>
         <ul>
@@ -24,6 +29,7 @@
           </li>
         </ul>
         <p><strong>Total:</strong> {{ calculateTotal(order) | currency }}</p>
+        <p><strong>Notes:</strong> {{ order.customerNote }}</p>
         <mat-form-field appearance="fill">
           <mat-label>Status</mat-label>
           <mat-select [(value)]="order.status" (selectionChange)="updateOrderStatus(order.id, $event.value)">

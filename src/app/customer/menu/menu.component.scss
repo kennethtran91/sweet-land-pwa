@@ -52,10 +52,7 @@
   gap: 16px;
   justify-content: center;
   padding-bottom: 20px; // Remove default padding
-  
-  &.cart-visible {
-    padding-bottom: 250px; // Only add padding when cart is visible
-  }
+  transition: padding-bottom 0.3s ease;
 }
 
 .menu-item {
@@ -65,7 +62,6 @@
 
 .cart-container {
   padding: 16px;
-  position: fixed;
   bottom: 0;
   left: 0;
   width: calc(100% - 32px); // Account for padding
@@ -80,4 +76,8 @@
     height: 150px;
     object-fit: cover;
   }
+}
+
+mat-card-actions {
+  justify-content: flex-end;
 }

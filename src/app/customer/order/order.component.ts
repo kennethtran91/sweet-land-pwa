@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MockOrderService } from '../../shared/services/mock-order.service';
-import { MOCK_ORDERS } from '../../shared/mock-order';
+import { OrderService } from '../../shared/services/order.service';
 import { Order } from '../../shared/models/order.interface';
 
 @Component({
@@ -13,7 +12,9 @@ export class OrderComponent implements OnInit {
   cart: { drinkName: string; quantity: number; price: number }[] = [];
   totalCost = 0;
   customerName = '';
-  constructor(private orderService: MockOrderService, private router: Router) {}
+  customerNote = '';
+  constructor(private orderService: OrderService, private router: Router) {}
+  
   ngOnInit(): void {
     const cartData = localStorage.getItem('cart');
     if (cartData) {
@@ -29,24 +30,24 @@ export class OrderComponent implements OnInit {
     );
   }
 
-  submitOrder(): void {
-    if (!this.customerName) {
-      alert('Please enter your name.');
-      return;
-    }
-
+  submitOrder() {
     const order: Order = {
-      id: '', // Mock service will generate ID
-      customerName: this.customerName,
+      id: '',
       items: this.cart,
+      customerName: this.customerName,
       status: 'Pending',
+      totalPrice: this.totalCost,
+      customerNote: this.customerNote || ''
     };
 
-    this.orderService.addOrder(order);
-    localStorage.removeItem('cart'); // Clear cart after submission
-    alert('Order submitted successfully!');
-    this.router.navigate(['/']); // Navigate back to the menu
+    console.log(order);
+    alert('Order submitted successfully');
+    this.orderService.submitOrder(order).subscribe(() => {
+      localStorage.removeItem('cart');
+      this.router.navigate(['/']);
+    });
   }
+
 
   backToMenu(): void {
     this.router.navigate(['/']);

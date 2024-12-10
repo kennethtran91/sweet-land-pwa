@@ -1,8 +1,7 @@
 .form-row {
   display: flex;
   align-items: center;
-  gap: 10px; /* Adjust the gap between elements as needed */
-  margin: 15px;
+  gap: 5px; /* Adjust the gap between elements as needed */
 }
 
 .form-field {
@@ -21,14 +20,26 @@
   margin: 10px;
 }
 
-.mat-mdc-card {
-  height: 100%;
-}
-
 .name-field {
   flex: 2; /* Make the name input twice as wide as the price input */
 }
 
 .price-field {
   flex: 1; /* Make the price input take up less space */
+}
+
+.drink-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 10px;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  
+  .form-field {
+    flex: 1;
+  }
 }

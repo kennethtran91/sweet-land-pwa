@@ -8,8 +8,8 @@
     margin-top: 16px;
   }
 
-  mat-select {
-    width: 150px;
+  .mat-mdc-select {
+    width: 100%;
   }
 }
 mat-expansion-panel-header {
@@ -26,4 +26,16 @@ mat-panel-description {
 }
 .search-box {
   width: 100%;
+}
+
+.status-completed {
+  background-color: #D6EADf; // light green
+}
+
+.status-pending {
+  background-color: #EAC4D5; // light pink
+}
+
+.status-cancelled {
+  background-color: #f0f0f0; // light gray
 }

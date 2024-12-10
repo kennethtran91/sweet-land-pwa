@@ -7,5 +7,6 @@ export const environment = {
     storageBucket: "YOUR_STORAGE_BUCKET",
     messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
     appId: "YOUR_APP_ID"
-  }
+  },
+  apiUrl: 'http://192.168.0.78:3000/api' // Local backend URL
 };

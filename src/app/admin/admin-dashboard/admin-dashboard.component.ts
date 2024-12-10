@@ -13,4 +13,8 @@ export class AdminDashboardComponent {
     localStorage.removeItem('adminLoggedIn');
     this.router.navigate(['/admin/login']);
   }
+
+  toCustomerPage(): void {
+    this.router.navigate(['/']);
+  }
 }

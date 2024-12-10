@@ -1,6 +1,7 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MockMenuService } from '../../shared/services/mock-menu.service';
+// import { MockMenuService } from '../../shared/services/mock-menu.service';
+import { MenuService } from 'src/app/shared/services/menu.service';
 import { Drink } from '../../shared/models/drink-model.interface';
 interface CartItem {
   drink: Drink;
@@ -12,10 +13,10 @@ interface CartItem {
   styleUrls: ['./menu.component.scss']
 })
 
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit{
   drinks: Drink[] = [];
   cart: CartItem[] = [];
-  constructor(private menuService: MockMenuService, private router: Router) {}
+  constructor(private menuService: MenuService, private router: Router) {}
 
   ngOnInit(): void {
     this.menuService.getDrinks().subscribe((menu) => {
