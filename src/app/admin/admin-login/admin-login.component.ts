@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./admin-login.component.scss'],
 })
 export class AdminLoginComponent {
-  private readonly adminPassword = environment.ADMIN_PASSWORD // Fallback for development
+  private readonly adminPassword = environment.ADMIN_PASSWORD;
   pin = '';
 
   constructor(private router: Router) {}

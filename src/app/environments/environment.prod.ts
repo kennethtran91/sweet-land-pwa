@@ -8,6 +8,6 @@ export const environment = {
     messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
     appId: 'YOUR_APP_ID',
   },
-  apiUrl: process.env['apiUrl'],
-  ADMIN_PASSWORD: process.env['DATABASE_URL'],
+  apiUrl: 'https://sweet-land-api.onrender.com/api',
+  ADMIN_PASSWORD: '/__CUSTOM_VALUE__/',
 };
