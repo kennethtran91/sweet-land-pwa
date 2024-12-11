@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build:production": "npm run set-env-value && ng build --prod --configuration=production",
+    "build:production": "npm run set-env-value && ng build --configuration=production",
     "set-env-value": "node set-env-value.js"
   },
   "private": true,
