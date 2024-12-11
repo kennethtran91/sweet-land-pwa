@@ -9,5 +9,5 @@ export const environment = {
     appId: 'YOUR_APP_ID',
   },
   apiUrl: 'https://sweet-land-api.onrender.com/api',
-  ADMIN_PASSWORD: '/default_value/',
+  ADMIN_PASSWORD: '__CUSTOM_VALUE__',
 };
