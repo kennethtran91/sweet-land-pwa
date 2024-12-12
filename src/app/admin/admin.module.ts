@@ -18,6 +18,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {NgxPrintModule} from 'ngx-print';
 
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 
@@ -43,7 +44,8 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
     MatSelectModule,
     MatTabsModule,
     MatExpansionModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgxPrintModule
   ],
   exports: [
     MenuManagementComponent,

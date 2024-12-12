@@ -43,3 +43,9 @@ mat-expansion-panel {
     background-color: #f0f0f0; // light gray
   }
 }
+
+.order-management-footer {
+  display: flex;
+  gap: 50px; /* Space between buttons */
+  justify-content: center; /* Align buttons to the right */
+}

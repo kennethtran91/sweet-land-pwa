@@ -26,15 +26,17 @@
 
       <div class="order-details">
         <br />
-        <p><strong>Order ID:</strong> {{ order.id }}</p>
-        <p><strong>Items:</strong></p>
-        <ul>
-          <li *ngFor="let item of order.items">
-            {{ item.drinkName }} x {{ item.quantity }}
-          </li>
-        </ul>
-        <p><strong>Total:</strong> {{ calculateTotal(order) | currency }}</p>
-        <p><strong>Notes:</strong> {{ order.customerNote }}</p>
+        <span id="print-section">
+          <p><strong>Order ID:</strong> {{ order.id }}</p>
+          <p><strong>Items:</strong></p>
+          <ul>
+            <li *ngFor="let item of order.items">
+              {{ item.drinkName }} x {{ item.quantity }}
+            </li>
+          </ul>
+          <p><strong>Total:</strong> {{ calculateTotal(order) | currency }}</p>
+          <p><strong>Notes:</strong> {{ order.customerNote }}</p>
+        </span>
         <mat-form-field appearance="fill">
           <mat-label>Status</mat-label>
           <mat-select [(value)]="order.status" (selectionChange)="updateOrderStatus(order.id, $event.value)">
@@ -43,8 +45,11 @@
             <mat-option value="Cancelled">Cancelled</mat-option>
           </mat-select>
         </mat-form-field>
-        <button mat-raised-button color="accent" *ngIf="order.status === 'Completed'" (click)="deleteOrder(order.id)">Delete Order</button>
-
+      </div>
+      <div class="order-management-footer">
+        <button printSectionId="print-section" ngxPrint mat-button color="accent">Print Order</button>
+        <button mat-raised-button color="accent" *ngIf="order.status === 'Completed'"
+          (click)="deleteOrder(order.id)">Delete Order</button>
       </div>
     </mat-expansion-panel>
   </mat-accordion>
